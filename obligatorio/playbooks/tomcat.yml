@@ -1,0 +1,43 @@
+---
+- hosts: redhat
+  become: yes
+  remote_user: ansible
+
+  tasks:
+          
+  - name: Install Java
+    yum:
+     name: java-1.8.0-openjdk-devel
+
+  - name: Install Tomcat
+    yum:
+     name: tomcat
+  
+  - name: Copy todo.war
+    ansible.builtin.copy:
+       src: ./todo.war
+       dest: /var/lib/tomcat/webapps/
+       owner: tomcat
+       group: tomcat
+       mode: '0644'
+
+  - name: Restart Tomcat
+    ansible.builtin.service:
+      name: tomcat
+      state: restarted
+
+  - name: Allow firewall's port 8080 and 8081
+    firewalld:
+      port: "{{ item }}"
+      state: enabled
+      permanent: true
+      immediate: true
+    loop:
+    - 8080/tcp
+    - 8081/tcp
+
+  - name: Reload firewall
+    systemd:
+     name: firewalld
+     state: restarted
+    
