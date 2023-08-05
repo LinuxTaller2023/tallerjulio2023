@@ -10,25 +10,13 @@
       name: httpd
       state: present
 
-  - name: Create virtualhost configuration directory
-    file:
-      path: /etc/httpd/vhosts.d
-      state: directory
-      owner: root
+  - name: Start and enabled httpd service
+    service:
+      name: httpd
+      enabled: true
+      state: started
 
-  - name: Copy virtualhost configuration
-    ansible.builtin.copy:
-      src: ./virtualhost.conf
-      dest: /etc/httpd/vhost.d/
-      owner: apache
-      group: apache
-      mode: '0644'
 
-  - name: Include vhosts directory
-    lineinfile:
-      path: /etc/httpd/conf/httpd.conf
-      line: IncludeOptional /etc/httpd/vhosts.d/*.conf  
-  
   - name: Open firewall ports
     firewalld: 
       service: "{{ item }}"
@@ -38,24 +26,23 @@
     loop:
     - http
     - https    
-
-  - name: Start and enabled httpd service
-    service:
-      name: httpd
-      enabled: true
-      state: started
-
-  - name: Copy index file
-    template:
-      src: ./files/index.j2
-      dest: /var/www/ejemplo/html/index.html
+  
+  - name: Copy virtualhost
+    ansible.builtin.copy:
+      src: ./virtualhost.conf
+      dest: /etc/httpd/conf.d/
       owner: apache
       group: apache
-      mode: '644'
-
-  handlers:
-
+      mode: '0644'
+  
+  - name: Allow SELinux
+    ansible.posix.seboolean:
+      name: httpd_can_network_connect
+      state: true
+      persistent: true
+  
   - name: Restart apache
-    service:
+    systemd:
       name: httpd
       state: restarted
+
