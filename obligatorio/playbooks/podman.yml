@@ -1,0 +1,24 @@
+---
+- hosts: redhat
+  become: yes
+  remote_user: ansible
+
+  tasks:
+  - name: Install Podman
+    yum:
+     name: podman
+
+  - name: Pull image Tomcat
+    containers.podman.podman_image:
+            name: tomcat
+
+  - name: Re-create a redis container
+    containers.podman.podman_container:
+      image: tomcat
+      state: started
+      detach: true
+      exposed_ports:
+        - 80
+      ports:
+        - 8081:80          
+         

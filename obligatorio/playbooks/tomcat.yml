@@ -4,40 +4,46 @@
   remote_user: ansible
 
   tasks:
-          
-  - name: Install Java
+  - name: Installing OpenJDK
     yum:
-     name: java-1.8.0-openjdk-devel
+       name: java-1.8.0-openjdk
+
 
   - name: Install Tomcat
     yum:
      name: tomcat
+
+
+  - name: Start and enable Tomcat
+    service:
+      name: tomcat
+      enabled: true
+      state: started
   
   - name: Copy todo.war
     ansible.builtin.copy:
-       src: ./todo.war
-       dest: /var/lib/tomcat/webapps/
-       owner: tomcat
-       group: tomcat
-       mode: '0644'
+      src: ./todo.war
+      dest: /var/lib/tomcat/webapps/
+      owner: tomcat
+      group: tomcat
+      mode: '0644'
 
   - name: Restart Tomcat
-    ansible.builtin.service:
+    ansible.builtin.service:  
       name: tomcat
-      state: restarted
+      state: restarted 
 
   - name: Allow firewall's port 8080 and 8081
     firewalld:
       port: "{{ item }}"
       state: enabled
       permanent: true
-      immediate: true
+      immediate: true   
     loop:
     - 8080/tcp
-    - 8081/tcp
-
+    - 8081/tcp 
+  
   - name: Reload firewall
     systemd:
      name: firewalld
      state: restarted
-    
