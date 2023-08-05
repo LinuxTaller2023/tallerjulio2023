@@ -1,0 +1,13 @@
+---
+
+- hosts: redhat
+  become: yes
+  remote_user: ansible
+
+
+  tasks:
+  - name: Copiar todo.war de local a remoto
+    ansible.builtin.copy:
+      src: ./todo.war
+      dest: /var/lib/tomcat/webapps
+

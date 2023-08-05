@@ -1,0 +1,10 @@
+---
+
+- hosts: redhat
+  become: yes
+  remote_user: ansible
+
+  tasks:
+  - name: Instalar java
+    yum:
+     name: java-1.8.0-openjdk-devel

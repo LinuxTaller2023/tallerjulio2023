@@ -1,0 +1,13 @@
+---
+
+- hosts: redhat
+  become: yes
+  remote_user: ansible
+
+
+  tasks:
+  - name: reiniciar tomcat
+    ansible.builtin.service:
+     name: tomcat
+     state: restarted
+

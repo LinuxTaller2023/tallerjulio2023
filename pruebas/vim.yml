@@ -1,0 +1,11 @@
+---
+- hosts: redhat
+  become: yes
+  remote_user: ansible
+
+  tasks:
+  - name: Instalar tomcat
+    yum:
+     name: vim
+
+
