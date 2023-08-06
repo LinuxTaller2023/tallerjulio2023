@@ -1,0 +1,10 @@
+---
+- hosts: redhat
+  become: yes
+  remote_user: ansible
+
+  tasks:
+  - name: Run Podman
+    command: >
+      podman run -d -p 8081:8080 -v /var/lib/tomcat/webapps/todo:/usr/local/tomcat/webapps/todo:Z -v /opt/config/:/opt/config/:Z tomcat:9
+
