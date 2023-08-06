@@ -3,22 +3,23 @@
   become: yes
   remote_user: ansible
 
-  tasks:
+  tasks: 
+  
+  - name: Install EPEL
+    yum:
+     name: epel-release
+
   - name: Install Podman
     yum:
      name: podman
 
-  - name: Pull image Tomcat
-    containers.podman.podman_image:
-            name: tomcat
 
-  - name: Re-create a redis container
-    containers.podman.podman_container:
-      image: tomcat
-      state: started
-      detach: true
-      exposed_ports:
-        - 80
-      ports:
-        - 8081:80          
-         
+  - name: Enable Podman service
+    systemd:
+        name: podman
+        state: started
+        enabled: yes
+  
+  - name: Run Podman
+    command: >
+      podman run -d -p 8081:8080 -v /var/lib/tomcat/webapps/todo:/usr/local/tomcat/webapps/todo:Z -v /opt/config/:/opt/config/:Z tomcat:9   
