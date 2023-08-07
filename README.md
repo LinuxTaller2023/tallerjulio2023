@@ -59,16 +59,44 @@ todo esto teniendo en cuenta un ambiente en virtualbox ultima version.
 > Configuramos nuestra cuenta en <https://github.com>
 ------------
 > Realizamos un update a todos los equipos.
+```bash
+sudo dnf update -y 
+```
 ------------
+------------
+> Instalamos Epel
+
+```bash
+Sudo epel install -y 
+```
+------------
+
 > Creamos las claves ssh que nos permiten copiarlas posteriormente y configurar los accesos en github.
+```bash
+ssh-keygen
+```
 ------------
 > Creamos el usuario ansible en los equipos Rocky y Ubuntu.
+```bash
+sudo dnf install ansible –y 
+```
+```bash
+sudo apt install ansible –y 
+```
 ------------
-> Copiamos las claves ssh. al equipo bastion que sera desde donde desplegan los Playbooks. 
+> Copiamos las claves ssh. al equipo bastion que sera desde donde desplegan los Playbooks.
+```bash
+ssh-copy-id ansible@<ip del remoto>
+```
 ------------
 > Creamos los repositorios en github.
 ------------
-> Instalamos ansible en el servidor Bation
+> Instalamos ansible en el servidor Bastion
+```bash
+sudo dnf install ansible –y
+```
+------------
+> Configuramos ansible
 ------------
 ### TERMINAR ESTA PARTE
 
