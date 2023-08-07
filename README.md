@@ -1,70 +1,37 @@
-# Foobar
+###Obligatorio Taller Instalación Servidores Linux
+<center><a href="https://freeimage.host/i/HtXjYhB"><img src="https://iili.io/HtXjYhB.md.png" alt="HtXjYhB.md.png" border="0"></a></center>
 
-Foobar is a Python library for dealing with word pluralization.
 
-## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+#####En este trabajo se tocaron los siguientes temas
 
-```bash
-pip install foobar
-```
+- Instalacion y particionado de Discos
+-Instalacion y configuracion de Servidores Rocky y Ubuntu para desplegar tareas de ansible.
+- Agregar un usuario ansible que corra en los equipos sin pedir  contraseña.
+- Armado de playbooks para realizar las siguientes tareas:
 
-## Usage
+------------
 
-```python
-import foobar
 
-# returns 'words'
-foobar.pluralize('word')
+> Realizar la instalación de la aplicación Tomcat usada en el obligatorio de Administración de Servidores, dentro de un container en el servidor Rocky.
 
-# returns 'geese'
-foobar.pluralize('goose')
+------------
+> Configurar un servidor web apache como proxy reverso en el servidor Rocky. 
 
-# returns 'phenomenon'
-foobar.singularize('phenomena')
-```
+------------
 
-## Contributing
+> Instalar la base de datos mariadb en el servidor Ubuntu
 
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
+------------
 
-Please make sure to update tests as appropriate.
+> Tener firewall activo habilitando los accesos necesarios en ambos servidores.
 
-## License
+------------
 
-[MIT](https://choosealicense.com/licenses/mit/)# Foobar
+> El playbook debe ser válido tanto para CentOS como para Ubuntu.
 
-Foobar is a Python library for dealing with word pluralization.
+------------
 
-## Installation
-
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
-
-```bash
-pip install foobar
-```
-
-## Usage
-
-```python
-import foobar
-
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
-```
-
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
